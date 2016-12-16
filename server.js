@@ -83,11 +83,24 @@ app.get('/api/profile', function(req, res) {
 //get all projects
 app.get('/api/projects', function(req, res) {
   //send all projects as json response
-  db.Project.find().exec(function(err, projects) {
+  db.Project.find({}, function(err, projects) {
     if (err) {
+      res.status(500).send('server error');
       return console.log("index error: " + err);
     }
     res.json(projects);
+  })
+})
+
+//get project by ID
+app.get('/api/projects/:id', function (req, res) {
+  //get project by id from url params
+  db.Project.findOne({_id: req.params.id}, function (err, foundProject){
+    if (err){
+      res.status(500).send('database error');
+      return console.log('error: ' + err);
+    }
+    res.json(foundProject);
   })
 })
 
@@ -98,21 +111,49 @@ app.post('/api/projects', function (req, res) {
   //save newProject to database
   newProject.save(function(err, project) {
     if (err) {
+      res.status(500).send('database error');
       return console.log("save error: " + err);
     }
-    console.log("saved " + project.name);
+    res.json(project);
   })
 })
 
-//delete book
+//delete project
 app.delete('/api/projects/:id', function (req, res) {
   //get project by id from url params
-  console.log('project delete', req.params);
   db.Project.findOneAndRemove({_id: req.params.id}, function (err, deletedProject) {
     if (err) {
+      res.status(500).send('database error');
       return console.log("deletion error: " + err);
     }
     res.json(deletedProject);
+  })
+})
+
+//update project
+app.patch('/api/projects/:id', function (req, res) {
+  //get project by id from url params
+  db.Project.findOne({_id: req.params.id}, function (err, updatedProject){
+    if (err){
+      res.status(500).send('update error');
+      return console.log('update error: ' + err);
+    }
+    //update student data
+    updatedProject.name = req.body.name || updatedProject.name;
+    updatedProject.dateCreated = req.body.dateCreated || updatedProject.dateCreated;
+    updatedProject.description = req.body.description || updatedProject.description;
+    updatedProject.technologies = req.body.technologies || updatedProject.technologies;
+    updatedProject.deploymentSite = req.body.deploymentSite || updatedProject.deploymentSite;
+    updatedProject.screenshot = req.body.screenshot || updatedProject.screenshot;
+    //save updates
+    updatedProject.save(function(err, savedProject){
+      if (err){
+        res.status(500).send('database error');
+        return console.log('save error: ' + err);
+      }
+      //send saved data
+      res.json(savedProject);
+    })
   })
 })
 
