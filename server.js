@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
  * DATABASE *
  ************/
 
-// var db = require('./models');
+var db = require('./models');
 
 /**********
  * ROUTES *
@@ -79,6 +79,30 @@ app.get('/api/profile', function(req, res) {
       description: "A linguist is recruited by the military to assist in translating alien communications."}]
   })
 });
+
+//get all projects
+app.get('/api/projects', function(req, res) {
+  //send all projects as json response
+  db.Project.find().exec(function(err, projects) {
+    if (err) {
+      return console.log("index error: " + err);
+    }
+    res.json(projects);
+  })
+})
+
+//create new project
+app.post('/api/projects', function (req, res) {
+  //create new project with form data
+  var newProject = new db.Project(req.body);
+  //save newProject to database
+  newProject.save(function(err, project) {
+    if (err) {
+      return console.log("save error: " + err);
+    }
+    console.log("saved " + project.name);
+  })
+})
 
 /**********
  * SERVER *
