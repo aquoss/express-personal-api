@@ -50,11 +50,33 @@ app.get('/api', function api_index(req, res) {
     baseUrl: "https://personal-api-aquoss.herokuapp.com/",
     endpoints: [
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
-      {method: "GET", path: "/api/profile", description: "Data about me"}, 
+      {method: "GET", path: "/api/profile", description: "Data about me"},
       {method: "GET", path: "/api/dives", description: "Data about dives I've done"},
       {method: "POST", path: "/api/dives", description: "Creates a new dive entry"},
+      {method: "GET", path: "/api/projects", descrition: "Data about projects I've completed"},
       {method: "POST", path: "/api/projects", description: "Creates a new project entry"}
     ]
+  })
+});
+
+app.get('/api/profile', function(req, res) {
+  res.json({
+    name: "Amber Quoss",
+    githubUsername: "aquoss",
+    githubLink: "https://github.com/aquoss",
+    githubProfileImage: "https://avatars0.githubusercontent.com/u/23706621?v=3&u=f03253789f60a754707b8e989678385df46b59dd&s=400",
+    personalSiteLink: "https://aquoss.github.io",
+    currentCity: "San Francsico",
+    favoriteColor: "turquoise",
+    favoriteMovies: [{title: "Inception", director: "Christopher Nolan",
+      stars: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
+      description: "A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO."},
+      {title: "Prisoners", director: "Denis Villeneuve", stars: ["Hugh Jackman", "Jake Gyllenhaal", "Viola Davis"],
+      description: "When Keller Dover's daughter and her friend go missing, he takes matters into his own hands as the police pursue multiple leads and the pressure mounts."},
+      {title: "Short Term 12", director: "Destin Cretton", stars: ["Brie Larson", "Frantz Turner", "John Gallagher Jr."],
+      description: "A 20-something supervising staff member of a residential treatment facility navigates the troubled waters of that world alongside her co-worker and longtime boyfriend."},
+      {title: "Arrival", director: "Denis Villeneuve", stars: ["Amy Adams", "Jeremy Renner", "Forest Whitaker"],
+      description: "A linguist is recruited by the military to assist in translating alien communications."}]
   })
 });
 
