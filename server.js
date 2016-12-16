@@ -104,6 +104,18 @@ app.post('/api/projects', function (req, res) {
   })
 })
 
+//delete book
+app.delete('/api/projects/:id', function (req, res) {
+  //get project by id from url params
+  console.log('project delete', req.params);
+  db.Project.findOneAndRemove({_id: req.params.id}, function (err, deletedProject) {
+    if (err) {
+      return console.log("deletion error: " + err);
+    }
+    res.json(deletedProject);
+  })
+})
+
 /**********
  * SERVER *
  **********/
