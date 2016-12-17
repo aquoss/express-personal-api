@@ -1,4 +1,5 @@
 /*bold and highlight nav bar*/
+/*header red part moves up to under name whenver you click on something else*/
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -44,4 +45,16 @@ header {
 #description {
   font-family: 'Raleway', sans-serif;
   font-size: 17px;
+}
+
+.nav:hover {
+  transition: all 0.5s ease;
+  font-size: 22px;
+  text-decoration: underline;
+}
+
+#overview:hover {
+  transition: all 0.5s ease;
+  padding: 15px;
+  font-size: 25px;
 }
