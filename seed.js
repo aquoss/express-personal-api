@@ -11,11 +11,13 @@ var newProject = {name: "Black Magic",
   screenshot: "none"
   }
 
-db.Project.create(newProject, function(err, project){
-  if (err){
-    return console.log("Error:", err);
-  }
+db.Project.remove({}, function (err, someQueryResponse){
+  db.Project.create(newProject, function(err, project){
+    if (err){
+      return console.log("Error:", err);
+    }
 
-  console.log("Created new project", project._id)
-  process.exit(); // we're all done! Exit the program.
+    console.log("Created new project", project._id)
+    process.exit(); // we're all done! Exit the program.
+  })
 })
