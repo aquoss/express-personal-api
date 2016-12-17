@@ -51,8 +51,8 @@ app.get('/api', function api_index(req, res) {
     endpoints: [
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
       {method: "GET", path: "/api/profile", description: "Data about me"},
-      {method: "GET", path: "/api/dives", description: "Data about dives I've done"},
-      {method: "POST", path: "/api/dives", description: "Creates a new dive entry"},
+      // {method: "GET", path: "/api/dives", description: "Data about dives I've done"},
+      // {method: "POST", path: "/api/dives", description: "Creates a new dive entry"},
       {method: "GET", path: "/api/projects", descrition: "Data about projects I've completed"},
       {method: "POST", path: "/api/projects", description: "Creates a new project entry"}
     ]
@@ -60,6 +60,13 @@ app.get('/api', function api_index(req, res) {
 });
 
 app.get('/api/profile', function(req, res) {
+  // var awake;
+  // var hour = Date.now()/(3.6*Math.pow(10,6));
+  // if (hour<8 || hour>23) {
+  //   awake = false;
+  // } else {
+  //   awake = true;
+  // }
   res.json({
     name: "Amber Quoss",
     githubUsername: "aquoss",
@@ -67,7 +74,9 @@ app.get('/api/profile', function(req, res) {
     githubProfileImage: "https://avatars0.githubusercontent.com/u/23706621?v=3&u=f03253789f60a754707b8e989678385df46b59dd&s=400",
     personalSiteLink: "https://aquoss.github.io",
     currentCity: "San Francsico",
+    // sleeping: awake,
     favoriteColor: "turquoise",
+    enjoy: ["ballet", "scuba diving", "sarcasm", "mind-bending movies", "spontaneity", "live music", "pretending like I can sing", "eating in bed"],
     favoriteMovies: [{title: "Inception", director: "Christopher Nolan",
       stars: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
       description: "A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO."},
@@ -138,7 +147,7 @@ app.patch('/api/projects/:id', function (req, res) {
       res.status(500).send('update error');
       return console.log('update error: ' + err);
     }
-    //update student data
+    //update project data
     updatedProject.name = req.body.name || updatedProject.name;
     updatedProject.dateCreated = req.body.dateCreated || updatedProject.dateCreated;
     updatedProject.description = req.body.description || updatedProject.description;
