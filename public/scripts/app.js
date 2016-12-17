@@ -1,3 +1,5 @@
+//move data variables into back end and add more
+//what does the profile do?
 $(document).ready(function(){
 
   var profileKeys = ['currentCity','githubProfileImage','favoriteColor','favoriteMovies','enjoy'];
@@ -7,6 +9,11 @@ $(document).ready(function(){
                 favoriteColor:'My favorite color is ',
                 favoriteMovies:'One of my favorite movies is: ',
                 enjoy:'I quite thoroughly enjoy: '}
+
+  $('#home').on('click', function(){
+    $('#headingAddOn').css('opacity',1);
+    $('header').css('height','auto');
+  })
 
   $.ajax({
     method: 'GET',
@@ -19,39 +26,21 @@ $(document).ready(function(){
   })
 
 
-  $('#overview').on('click', function(){
+  $('#tidbit').on('click', function(){
     //responds with all api data
     $.ajax({
       method: 'GET',
       url: 'https://personal-api-aquoss.herokuapp.com/api/profile',
-      success: function(response){
-        //remove previous tidbit
-        $('#data').html("");
-        //check for repetition
-        if (profileKeys.length === 0) {
-          return $('#data').append("<p class='emphasize'>You've consumed all my tidbits!</p>");
-        }
-        //generate a random object key
-        var objIndex = Math.floor(Math.random()*(profileKeys.length));
-        if (profileKeys[objIndex] === 'enjoy') {
-          var arrIndex = Math.floor(Math.random()*enjoyArr.length);
-          $('#data').append('<p class="emphasize">' + message.enjoy, enjoyArr[arrIndex] + '</p>');
-          enjoyArr.splice(arrIndex,1);
-          if (enjoyArr.length === 0) {
-            profileKeys.splice(objIndex);
-          }
-        } else if (profileKeys[objIndex] === 'favoriteMovies') {
-          var arrIndex = Math.floor(Math.random()*favoriteMoviesArr.length);
-          $('#data').append('<p class="emphasize">' + message.favoriteMovies, favoriteMoviesArr[arrIndex].title + '</p>');
-          favoriteMoviesArr.splice(arrIndex,1);
-          if (favoriteMoviesArr.length == 0) {
-            profileKeys.splice(objIndex);
-          }
-        } else {
-          $('#data').append('<p class="emphasize">' + message[profileKeys[objIndex]], response[profileKeys[objIndex]] + '</p>');
-          profileKeys.splice(objIndex,1);
-        }
-      },
+      success: tidbitGenerator,
+      error: onError
+    })
+  })
+
+  $('#projects').on('click', function(){
+    $.ajax({
+      method: 'GET',
+      url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
+      success: loadProjects,
       error: onError
     })
   })
@@ -104,6 +93,51 @@ $(document).ready(function(){
   //   success: onSuccess,
   //   error: onError
   //   })
+
+  function loadProjects(response){
+    shortHeader();
+  }
+
+  //shorten header
+  function shortHeader(){
+    $('#headingAddOn').css('opacity',0);
+    $('header').animate({height:'300px'},500);
+  }
+
+  function tidbitGenerator(response){
+    //remove previous tidbit
+    $('#data').html("");
+    //check for repetition
+    if (profileKeys.length === 0) {
+      return $('#data').append("<p class='emphasize'>Uh oh! You've consumed all my tidbits!</p>");
+    }
+    //generate a random object key
+    var objIndex = Math.floor(Math.random()*(profileKeys.length));
+    //append tidbit
+    if (profileKeys[objIndex] === 'enjoy') {
+      var arrIndex = Math.floor(Math.random()*enjoyArr.length);
+      $('#data').append('<p><span class="emphasize">' + message.enjoy + '</span><br>' + enjoyArr[arrIndex] + '</p>');
+      enjoyArr.splice(arrIndex,1);
+      //remove appended item to clear repetition
+      if (enjoyArr.length === 0) {
+        profileKeys.splice(objIndex);
+      }
+    } else if (profileKeys[objIndex] === 'favoriteMovies') {
+      var arrIndex = Math.floor(Math.random()*favoriteMoviesArr.length);
+      $('#data').append('<p><span class="emphasize">' + message.favoriteMovies + '</span><br>' + favoriteMoviesArr[arrIndex].title + '</p>');
+      favoriteMoviesArr.splice(arrIndex,1);
+      if (favoriteMoviesArr.length == 0) {
+        profileKeys.splice(objIndex);
+      }
+    } else if (profileKeys[objIndex] === 'githubProfileImage') {
+      $('#data').append('<p class="emphasize">' + message[profileKeys[objIndex]] +
+      '<br><img id="profilePic" src="' + response[profileKeys[objIndex]] + '"</p>');
+      profileKeys.splice(objIndex,1);
+    } else {
+      $('#data').append('<p><span class="emphasize">' + message[profileKeys[objIndex]] + '</span><br>' + response[profileKeys[objIndex]] + '</p>');
+      profileKeys.splice(objIndex,1);
+    }
+  }
 
 });
 
