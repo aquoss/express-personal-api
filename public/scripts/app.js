@@ -10,6 +10,13 @@ $(document).ready(function(){
                 favoriteMovies:'One of my favorite movies is: ',
                 enjoy:'I quite thoroughly enjoy: '}
 
+  $.ajax({
+    method: 'GET',
+    url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
+    success: loadProjects,
+    error: onError
+  })
+
   $('#home').on('click', function(){
     $('#headingAddOn').css('opacity',1);
     $('header').css('height','auto');
@@ -37,12 +44,7 @@ $(document).ready(function(){
   })
 
   $('#projects').on('click', function(){
-    $.ajax({
-      method: 'GET',
-      url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
-      success: loadProjects,
-      error: onError
-    })
+    shortHeader();
   })
 
 
@@ -94,8 +96,20 @@ $(document).ready(function(){
   //   error: onError
   //   })
 
+  function loadContact(response){
+
+  }
+
   function loadProjects(response){
-    shortHeader();
+    var source = $('#project-template').html();
+    var template = Handlebars.compile(source);
+    response.forEach(function(object){
+      var projectHtml = template({
+        name: object.name
+        screenshot: object.screenshot
+      })
+      $('#project-container').append(projectHtml);
+    })
   }
 
   //shorten header

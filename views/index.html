@@ -26,25 +26,30 @@
         <div class="row">
           <div class="col-xs-8 col-xs-offset-2">
             <nav>
-              <button class="nav">Home</button>
-              <button class="nav">Profile</button>
-              <button class="nav">Projects</button>
-              <button class="nav">Contact</button>
+              <button class="nav" id="home">Home</button>
+              <button class="nav" id="profile">Profile</button>
+              <button class="nav" id="projects">Projects</button>
+              <button class="nav" id="contact">Contact</button>
             </nav>
             <h1 id="name">Amber Quoss</h1>
             <h2 id="subtitle">Personal API</h2>
-            <div class="row">
-              <p class="col-xs-8 col-xs-offset-2" id="description">Welcome to my personal API! Here you can find information on my past projects, and general tidbits about me.</p>
+            <div class="row" id="headingAddOn">
+              <p class="col-sm-8 col-sm-offset-2" id="description">Welcome to my personal API! Here you can find information on my past projects, and general tidbits about me.</p>
+              <button id="tidbit" class="emphasize">Generate a Tidbit</button>
             </div>
-            <button id="overview">Generate a Tidbit</button>
           </div>
         </div>
-      </header>
-      <div class="row" id="body">
-        <div class="col-md-8 col-md-offset-2">
-
-          <div class="col-md-6 col-md-offset-3" id="data">
-            Holds actual JSON data (hide originally until click button)
+      </div>
+    </header>
+      <div class="container">
+        <div class="row" id="body">
+          <div class="col-md-8 col-md-offset-2" id="data"></div>
+          <div class="col-md-8 col-md-offset-2" id="project-container">
+            <h3>Project Archive</h3>
+            <script type="text/x-handlebars-template" id="project-template">
+              <img src="{{screenshot}}"></img>
+              <h4>{{name}}</h4>
+            </script>
           </div>
         </div>
       </div>
