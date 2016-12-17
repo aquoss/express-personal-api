@@ -9,6 +9,8 @@
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:100" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet">
 
     <!-- VENDOR SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
@@ -19,40 +21,29 @@
   </head>
   <body>
     <!-- adjust columns for small windows -->
-    <div class="container">
-      <div class="row" id="header">
-        <div class="col-md-6 col-md-offset-4">
-          <nav>
-            <button class="nav">Home</button>
-            <button class="nav">Profile</button>
-            <button class="nav">Projects</button>
-            <button class="nav">Contact</button>
-          </nav>
-
-
-              <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="https://www.linkedin.com/in/amber-quoss-647b1794">LinkedIn</a>
-                  <a class="dropdown-item" href="https://github.com/aquoss">Github</a>
-                  <a class="dropdown-item" href="mailto:amberquoss@gmail.com">Email</a>
-                </div>
-              </li> -->
-
-
-
-
-          <h1></h1>
-          <h2></h2>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2">
+            <nav>
+              <button class="nav">Home</button>
+              <button class="nav">Profile</button>
+              <button class="nav">Projects</button>
+              <button class="nav">Contact</button>
+            </nav>
+            <h1 id="name">Amber Quoss</h1>
+            <h2 id="subtitle">Personal API</h2>
+            <div class="row">
+              <p class="col-xs-8 col-xs-offset-2" id="description">Welcome to my personal API! Here you can find information on my past projects, and general tidbits about me.</p>
+            </div>
+            <button id="overview">Overview</button>
+          </div>
         </div>
-      </div>
+      </header>
       <div class="row" id="body">
-        <div class = "col-md-8 col-md-offset-2">
-          <h3>Short description</h3>
-          <button>Returns /api</button>
-          <div class = "col-md-6 col-md-offset-3" id="data">
+        <div class="col-md-8 col-md-offset-2">
+ 
+          <div class="col-md-6 col-md-offset-3" id="data">
             Holds actual JSON data (hide originally until click button)
           </div>
         </div>

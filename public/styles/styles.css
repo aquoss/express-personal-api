@@ -1,14 +1,47 @@
-body {
-  color: #333;
-  font-family: Helvetica, Arial, sans-serif;
-  background-color: skyblue; /* Sanity Check! */
-}
+/*bold and highlight nav bar*/
 
-h1 {
-  margin-top: 100px;
+body {
+  font-family: 'Roboto', sans-serif;
   text-align: center;
 }
 
 .nav {
-  background-color: rgba(0,0,0,1);
+  margin-top: 30px;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  font-size: 17px;
+  padding: 10px;
+}
+
+header {
+  background-color: #e8191b;
+  color: white;
+}
+
+#name {
+  font-size: 60px;
+  font-weight: bold;
+  margin-top: 50px;
+  font-family: 'Raleway', sans-serif;
+}
+
+#subtitle {
+  font-size: 40px;
+  margin-bottom: 50px;
+}
+
+#overview {
+  border-width: 3px;
+  border-style: solid;
+  border-color: white;
+  background-color: rgba(0,0,0,0);
+  font-size: 17px;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+#description {
+  font-family: 'Raleway', sans-serif;
+  font-size: 17px;
 }
