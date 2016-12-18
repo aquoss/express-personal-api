@@ -9,7 +9,7 @@ var ProjectSchema = new Schema({
   description: String,
   technologies: Array,
   deploymentSite: String,
-  screenshot: String
+  screenshot: { data: Buffer, contentType: String }
 });
 
 //create model from schema

@@ -10,6 +10,10 @@ $(document).ready(function(){
                 favoriteMovies:'One of my favorite movies is: ',
                 enjoy:'I quite thoroughly enjoy: '}
 
+  //hide new project form on load
+  $('#project-form').hide();
+
+  //initial project load
   $.ajax({
     method: 'GET',
     url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
@@ -17,11 +21,26 @@ $(document).ready(function(){
     error: onError
   })
 
+  $('#new-project').on('click', function(){
+    $('#project-container').hide();
+    $('#project-form').fadeIn(300);
+    $('#view-all').removeClass('active').addClass('inactive');
+    $('#new-project').removeClass('inactive').addClass('active');
+  })
+
+  $('#view-all').on('click', function(){
+    $('#project-form').hide();
+    $('#project-container').fadeIn(300);
+    $('#view-all').removeClass('inactive').addClass('active');
+    $('#new-project').removeClass('active').addClass('inactive');
+  })
+
   $('#home').on('click', function(){
     $('#headingAddOn').css('opacity',1);
     $('header').css('height','auto');
   })
 
+  //initialize data for tidbit generator
   $.ajax({
     method: 'GET',
     url: 'https://personal-api-aquoss.herokuapp.com/api/profile',
@@ -32,7 +51,7 @@ $(document).ready(function(){
     error: onError
   })
 
-
+  //event listener for tidbit button
   $('#tidbit').on('click', function(){
     //responds with all api data
     $.ajax({
@@ -43,9 +62,11 @@ $(document).ready(function(){
     })
   })
 
+  //post new project data and append to project page
   $('form').on('submit', function(event){
     event.preventDefault();
     var projectData = $('form').serialize();
+    console.log(projectData);
     $.ajax({
       method: 'POST',
       url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
