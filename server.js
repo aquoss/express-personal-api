@@ -137,9 +137,9 @@ app.post('/api/projects', function (req, res) {
 
 
 //delete project
-app.delete('/api/projects/', function (req, res) {
+app.delete('/api/projects/:id', function (req, res) {
   //get project by id from url params
-  db.Project.remove(function (err, deletedProject) {
+  db.Project.findOneAndRemove({_id: req.params.id}, function (err, deletedProject) {
     if (err) {
       res.status(500).send('database error');
       return console.log("deletion error: " + err);
