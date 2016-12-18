@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 //create project schema
 var ProjectSchema = new Schema({
   name: String,
-  dateCreated: String,
+  lastUpload: Date,
   description: String,
   technologies: Array,
   deploymentSite: String,

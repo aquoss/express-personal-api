@@ -116,7 +116,13 @@ app.get('/api/projects/:id', function (req, res) {
 //create new project
 app.post('/api/projects', function (req, res) {
   //create new project with form data
-  var newProject = new db.Project(req.body);
+  var newProject = new db.Project({
+    name: req.body.name,
+    lastUpload: Date.now(),
+    description: req.body.description,
+    technologies: req.body.technologies,
+    deploymentSite: req.body.deploymentSite,
+    screenshot: req.body.screenshot});
   //save newProject to database
   newProject.save(function(err, project) {
     if (err) {
@@ -149,7 +155,7 @@ app.patch('/api/projects/:id', function (req, res) {
     }
     //update project data
     updatedProject.name = req.body.name || updatedProject.name;
-    updatedProject.dateCreated = req.body.dateCreated || updatedProject.dateCreated;
+    updatedProject.lastUpload = Date.now();
     updatedProject.description = req.body.description || updatedProject.description;
     updatedProject.technologies = req.body.technologies || updatedProject.technologies;
     updatedProject.deploymentSite = req.body.deploymentSite || updatedProject.deploymentSite;
