@@ -13,6 +13,18 @@ $(document).ready(function(){
   //hide new project form on load
   $('#project-form').hide();
 
+//needs to delete specific id in route, get id from button you click on
+  // $('#contact').on('click', function(){
+  //   $.ajax({
+  //     method: 'DELETE',
+  //     url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
+  //     success: function(){
+  //       console.log('it worked');
+  //     },
+  //     error: onError()
+  //   })
+  // })
+
   //initial project load
   $.ajax({
     method: 'GET',
@@ -21,23 +33,15 @@ $(document).ready(function(){
     error: onError
   })
 
-  $('#new-project').on('click', function(){
-    $('#project-container').hide();
-    $('#project-form').fadeIn(300);
-    $('#view-all').removeClass('active').addClass('inactive');
-    $('#new-project').removeClass('inactive').addClass('active');
-  })
-
-  $('#view-all').on('click', function(){
-    $('#project-form').hide();
-    $('#project-container').fadeIn(300);
-    $('#view-all').removeClass('inactive').addClass('active');
-    $('#new-project').removeClass('active').addClass('inactive');
-  })
+  //handle project button toggle
+  $('#new-project').on('click', toggleRight);
+  $('#view-all').on('click', toggleLeft);
 
   $('#home').on('click', function(){
-    $('#headingAddOn').css('opacity',1);
+    $('#headingAddOn').show().css('opacity',1);
     $('header').css('height','auto');
+    $('#project-title').css({'transition':'all 0.7s ease','margin':'80px 0 80px 0'});
+    $('#data').hide();
   })
 
   //initialize data for tidbit generator
@@ -63,11 +67,9 @@ $(document).ready(function(){
   })
 
   //post new project data and append to project page
-  $('form').on('submit', function(event){
+  $('#project-form').on('submit', function(event){
     event.preventDefault();
-    var projectData = new FormData();
-    projectData.append('screenshot', $('#screenshot').files);
-    console.log(projectData);
+    var projectData = $('#project-form').serialize();
     $.ajax({
       method: 'POST',
       url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
@@ -131,7 +133,7 @@ $(document).ready(function(){
   //   })
 
   function loadContact(response){
-
+    $('#data').hide();
   }
 
   function loadProjects(response){
@@ -153,19 +155,24 @@ $(document).ready(function(){
       name: object.name,
       screenshot: object.screenshot
     })
+    toggleLeft();
     $('#project-container').append(projectHtml);
-    console.log(object);
   }
 
   //shorten header
   function shortHeader(){
+    $('#data').hide();
     $('#headingAddOn').css('opacity',0);
     $('header').animate({height:'300px'},500);
+    $('#headingAddOn').hide();
+    $('#project-title').css({'transition':'all 0.7s ease','margin':'0 0 80px 0'});
   }
 
   function tidbitGenerator(response){
     //remove previous tidbit
     $('#data').html("");
+    //fade back in
+    $('#data').fadeIn(10);
     //check for repetition
     if (profileKeys.length === 0) {
       return $('#data').append("<p class='emphasize'>Uh oh! You've consumed all my tidbits!</p>");
@@ -196,6 +203,20 @@ $(document).ready(function(){
       $('#data').append('<p><span class="emphasize">' + message[profileKeys[objIndex]] + '</span><br>' + response[profileKeys[objIndex]] + '</p>');
       profileKeys.splice(objIndex,1);
     }
+  }
+
+  //switch toggle between showing projects and new project form
+  function toggleRight(){
+    $('#project-container').hide();
+    $('#project-form').fadeIn(300);
+    $('#view-all').removeClass('active').addClass('inactive');
+    $('#new-project').removeClass('inactive').addClass('active');
+  }
+  function toggleLeft(){
+    $('#project-form').hide();
+    $('#project-container').fadeIn(300);
+    $('#view-all').removeClass('inactive').addClass('active');
+    $('#new-project').removeClass('active').addClass('inactive');
   }
 
 });

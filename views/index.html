@@ -44,36 +44,43 @@
       <div class="container">
         <div class="row" id="body">
           <div class="col-md-8 col-md-offset-2" id="data"></div>
-          <div class="col-md-8 col-md-offset-2" id="project-container">
-            <h3>Project Archive</h3>
-            <script type="text/x-handlebars-template" id="project-template">
-              <img src={{screenshot}}></img>
-              <h4>{{name}}</h4>
-            </script>
-            <form>
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" name="name">
-              </div>
-              <div class="form-group">
-                <label>Description</label>
-                <input type="text" class="form-control" name="description">
-              </div>
-              <div class="form-group">
-                <label>Technologies</label>
-                <input type="text" class="form-control" name="technologies" placeholder="List of technologies used">
-              </div>
-              <div class="form-group">
-                <label>Deployment Site</label>
-                <input type="text" class="form-control" name="site" placeholder="Link to url">
-              </div>
-              <div class="form-group">
-                <label>Screenshot</label>
-                <input type="file" name="screenshot" placeholder="No file chosen">
-              </div>
-              <input type="submit" class="btn btn-danger" id="submit">
-            </form>
+          <div class="btn-group" data-toggle="buttons">
+            <h3 id="project-title">Project Archive</h3>
+            <label class="btn btn-danger active" id="view-all">View All Projects</label>
+            <label class="btn btn-danger inactive" id="new-project">Add New Project</label>
           </div>
+          <div id="project-container">
+            <script type="text/x-handlebars-template" id="project-template">
+              <div class="image-wrapper col-md-4 col-sm-6">
+                <img src="{{screenshot}}" class="project-img"></img>
+                <h4>{{name}}</h4>
+              </div>
+            </script>
+          </div>
+          <form id="project-form">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" name="name">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <input type="text" class="form-control" name="description">
+            </div>
+            <div class="form-group">
+              <label>Technologies</label>
+              <input type="text" class="form-control" name="technologies" placeholder="List of technologies used">
+            </div>
+            <div class="form-group">
+              <label>Deployment Site</label>
+              <input type="text" class="form-control" name="site" placeholder="Link to url">
+            </div>
+            <div class="form-group">
+              <label>Screenshot</label>
+              <input type="text" class="form-control" name="screenshot" placeholder="/Desktop/Screenshots/" id="screenshot">
+            </div>
+            <input type="submit" class="btn btn-danger" id="submit">
+          </form>
+
         </div>
       </div>
     </div>
