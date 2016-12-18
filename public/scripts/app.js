@@ -43,6 +43,18 @@ $(document).ready(function(){
     })
   })
 
+  $('form').on('submit', function(event){
+    event.preventDefault();
+    var projectData = $('form').serialize();
+    $.ajax({
+      method: 'POST',
+      url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
+      data: projectData,
+      success: newProject,
+      error: onError
+    })
+  })
+
   $('#projects').on('click', function(){
     shortHeader();
   })
@@ -105,11 +117,22 @@ $(document).ready(function(){
     var template = Handlebars.compile(source);
     response.forEach(function(object){
       var projectHtml = template({
-        name: object.name
+        name: object.name,
         screenshot: object.screenshot
       })
       $('#project-container').append(projectHtml);
     })
+  }
+
+  function newProject(object){
+    var source = $('#project-template').html();
+    var template = Handlebars.compile(source);
+    var projectHtml = template({
+      name: object.name,
+      screenshot: object.screenshot
+    })
+    $('#project-container').append(projectHtml);
+    console.log(object);
   }
 
   //shorten header
