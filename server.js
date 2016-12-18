@@ -137,16 +137,9 @@ app.post('/api/projects', function (req, res) {
 
 
 //delete project
-app.delete('/api/projects/:id', function (req, res) {
-  // if (req.method === 'OPTIONS') {
-  //   var headers = {};
-  //   headers["Access-Control-Allow-Origin"] = "*";
-  //   headers["Access-Control-Allow-Methods"] = POST, GET, PUT, DELETE, OPTIONS;
-  //   headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
-  // }
-
+app.delete('/api/projects/', function (req, res) {
   //get project by id from url params
-  db.Project.findOneAndRemove({_id: req.params.id}, function (err, deletedProject) {
+  db.Project.remove(function (err, deletedProject) {
     if (err) {
       res.status(500).send('database error');
       return console.log("deletion error: " + err);
