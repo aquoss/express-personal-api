@@ -65,7 +65,8 @@ $(document).ready(function(){
   //post new project data and append to project page
   $('form').on('submit', function(event){
     event.preventDefault();
-    var projectData = $('form').serialize();
+    var projectData = new FormData();
+    projectData.append('screenshot', $('#screenshot').files);
     console.log(projectData);
     $.ajax({
       method: 'POST',

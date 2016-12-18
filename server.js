@@ -1,7 +1,6 @@
 // require express and other modules
 var express = require('express'),
     app = express();
-var fs = require('fs');
 
 // parse incoming urlencoded form data
 // and populate the req.body object
@@ -98,8 +97,7 @@ app.get('/api/projects', function(req, res) {
       res.status(500).send('server error');
       return console.log("index error: " + err);
     }
-    res.contentType(doc.screenshot.contentType);
-    res.send(doc.img.data);
+    res.json(projects);
   })
 })
 
@@ -124,7 +122,7 @@ app.post('/api/projects', function (req, res) {
     description: req.body.description,
     technologies: req.body.technologies,
     deploymentSite: req.body.deploymentSite,
-    screenshot: fs.readFileSync(req.body.screenshot)});
+    screenshot: req.body.screenshot});
   //save newProject to database
   newProject.save(function(err, project) {
     if (err) {
@@ -134,6 +132,8 @@ app.post('/api/projects', function (req, res) {
     res.json(project);
   })
 })
+
+
 
 //delete project
 app.delete('/api/projects/:id', function (req, res) {
