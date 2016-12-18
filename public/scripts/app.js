@@ -12,6 +12,7 @@ $(document).ready(function(){
 
   //hide new project form on load
   $('#project-form').hide();
+  $('#large-pic').hide();
 
 //needs to delete specific id in route, get id from button you click on
   // $('#contact').on('click', function(){
@@ -31,7 +32,7 @@ $(document).ready(function(){
     url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
     success: loadProjects,
     error: onError
-  })
+  });
 
   //handle project button toggle
   $('#new-project').on('click', toggleRight);
@@ -64,6 +65,20 @@ $(document).ready(function(){
       success: tidbitGenerator,
       error: onError
     })
+  })
+
+  $(document).on('click', '.project-img', function(){
+    // $('#large-pic').html('<p>please work</p>');
+    $('#large-pic').prepend($(this));
+    $('#project-container').hide();
+    $(this).css('height','400px');
+    $('#large-pic').show();
+    // $('body').on('click', function(event){
+    //   if (event.target === '#large-pic'){
+    //     console.log('yay');
+    //     return;
+    //   }
+    // })
   })
 
   //post new project data and append to project page

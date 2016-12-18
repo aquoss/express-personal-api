@@ -102,13 +102,23 @@ form {
 
 .image-wrapper {
   margin-top: 50px;
+  height: 250px;
 }
 
 .project-img {
   height: 200px;
-  width: 300px;
+  max-width: 100%;
 }
 
 #project-title {
   margin: 80px 0 80px 0;
 }
+
+#large-pic {
+  height: 500px;
+  margin: 30px 0 30px 0;
+}
+/*
+#image-wrapper span {
+  background-color: red;
+}*/
