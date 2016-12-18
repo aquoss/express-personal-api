@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods','GET,PUT,PATCH,POST,DELETE');
   next();
 });
 
@@ -137,12 +138,12 @@ app.post('/api/projects', function (req, res) {
 
 //delete project
 app.delete('/api/projects/:id', function (req, res) {
-  if (req.method === 'OPTIONS') {
-    var headers = {};
-    headers["Access-Control-Allow-Origin"] = "*";
-    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
-    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
-  }
+  // if (req.method === 'OPTIONS') {
+  //   var headers = {};
+  //   headers["Access-Control-Allow-Origin"] = "*";
+  //   headers["Access-Control-Allow-Methods"] = POST, GET, PUT, DELETE, OPTIONS;
+  //   headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+  // }
 
   //get project by id from url params
   db.Project.findOneAndRemove({_id: req.params.id}, function (err, deletedProject) {
