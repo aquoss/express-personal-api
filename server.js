@@ -61,13 +61,6 @@ app.get('/api', function api_index(req, res) {
 });
 
 app.get('/api/profile', function(req, res) {
-  // var awake;
-  // var hour = Date.now()/(3.6*Math.pow(10,6));
-  // if (hour<8 || hour>23) {
-  //   awake = false;
-  // } else {
-  //   awake = true;
-  // }
   res.json({
     name: "Amber Quoss",
     githubUsername: "aquoss",
@@ -105,7 +98,8 @@ app.get('/api/projects', function(req, res) {
 //get project by screenshot url
 app.get('/api/projects/:screenshot', function (req, res) {
   //get project by id from url params
-  db.Project.findOne({screenshot: req.query.screenshot}, function (err, foundProject){
+  var screenshotUrl = JSON.parse(req.query.screenshot);
+  db.Project.findOne({screenshot: screenshotUrl}, function (err, foundProject){
     if (err){
       res.status(500).send('database error');
       return console.log('error: ' + err);
