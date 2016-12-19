@@ -69,13 +69,14 @@ $(document).ready(function(){
     })
   })
 
+  var query, imageUrl;
+
   $(document).on('click', '.project-img', function(){
     $('#large-pic').prepend($(this));
     $('#project-container').hide();
     $(this).css('height','400px');
-    var imageUrl = this.src;
-    console.log(this.src);
-    var query = '/?screenshot='+imageUrl;
+    imageUrl = this.src;
+    query = '/?screenshot='+imageUrl;
     $.ajax({
       method: 'GET',
       url: 'https://personal-api-aquoss.herokuapp.com/api/projects' + query,
@@ -147,22 +148,23 @@ $(document).ready(function(){
   }
 
   function loadInfo(arr){
-    var source = $('#all-info').html();
-    var template = Handlebars.compile(source);
-    console.log(arr[0].name);
-    console.log(arr[0].description);
-    console.log(arr[0].technologies);
-    console.log(arr[0].deploymentSite);
-    console.log(arr[0].dateCreated);
-    var projectHtml = template({
-      name: arr[0].name,
-      dateCreated: arr[0].dateCreated,
-      description: arr[0].description,
-      technologies: arr[0].technologiesUsed,
-      deploymentSite: arr[0].deploymentSite
-    });
-    $('#large-pic').append(projectHtml);
-    $('#large-pic').show();
+    console.log(arr);
+    // var source = $('#all-info').html();
+    // var template = Handlebars.compile(source);
+    // console.log(arr[0].name);
+    // console.log(arr[0].description);
+    // console.log(arr[0].technologies);
+    // console.log(arr[0].deploymentSite);
+    // console.log(arr[0].dateCreated);
+    // var projectHtml = template({
+    //   name: arr[0].name,
+    //   dateCreated: arr[0].dateCreated,
+    //   description: arr[0].description,
+    //   technologies: arr[0].technologiesUsed,
+    //   deploymentSite: arr[0].deploymentSite
+    // });
+    // $('#large-pic').append(projectHtml);
+    // $('#large-pic').show();
   }
 
   //shorten header
