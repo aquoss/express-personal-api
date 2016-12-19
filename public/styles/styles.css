@@ -118,6 +118,11 @@ form {
   height: 500px;
   margin: 30px 0 30px 0;
 }
+
+#all-info {
+  font-family: 'Raleway', sans-serif;
+}
+
 /*
 #image-wrapper span {
   background-color: red;
