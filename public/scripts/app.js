@@ -1,5 +1,6 @@
 //move data variables into back end and add more
 //what does the profile do?
+//make list of technologies store in an array from the form
 $(document).ready(function(){
 
   var profileKeys = ['currentCity','githubProfileImage','favoriteColor','favoriteMovies','enjoy'];
@@ -18,7 +19,7 @@ $(document).ready(function(){
   // $('#contact').on('click', function(){
   //   $.ajax({
   //     method: 'DELETE',
-  //     url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
+  //     url: 'https://personal-api-aquoss.herokuapp.com/api/projects/585649c8d7d2d800115df9ef',
   //     success: function(){
   //       console.log('it worked');
   //     },
@@ -68,17 +69,17 @@ $(document).ready(function(){
   })
 
   $(document).on('click', '.project-img', function(){
-    // $('#large-pic').html('<p>please work</p>');
     $('#large-pic').prepend($(this));
     $('#project-container').hide();
     $(this).css('height','400px');
-    $('#large-pic').show();
-    // $('body').on('click', function(event){
-    //   if (event.target === '#large-pic'){
-    //     console.log('yay');
-    //     return;
-    //   }
-    // })
+    var imageUrl = this.src;
+    var query = '/?screenshot='+imageUrl;
+    $.ajax({
+      method: 'GET',
+      url: 'https://personal-api-aquoss.herokuapp.com/api/projects' + query,
+      success: loadInfo,
+      error: onError
+    })
   })
 
   //post new project data and append to project page
@@ -169,9 +170,22 @@ $(document).ready(function(){
     var projectHtml = template({
       name: object.name,
       screenshot: object.screenshot
-    })
+    });
     toggleLeft();
     $('#project-container').append(projectHtml);
+  }
+
+  function loadInfo(object){
+    var source = $('#all-info').html();
+    var template = Handlebars.compile(source);
+    var projectHtml = template({
+      name: object.name,
+      dateCreated: object.dateCreated,
+      description: object.description,
+      technologies: object.technologiesUsed,
+      deploymentSite: object.deploymentSite
+    });
+    $('#large-pic').show();
   }
 
   //shorten header
