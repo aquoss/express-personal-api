@@ -41,15 +41,15 @@ I will have many projects and many profile attributes, but both of those will be
 
 ## Routes  (Endpoints)
 
-- `GET /api` list all routes
-- 'GET /api/profile' randomly display profile attributes
+- `GET /api`         list all routes
+- `GET /api/profile` randomly display profile attributes
 
 ### RESTful Routes for Projects
 
 - `GET	/projects`	 	    display a list of all projects
-- `POST	/projects`	      create a new project
-- `GET	/projects/url`	  display a specific project by screenshot url
-- `PUT	/projects/url`	  update a specific project by screenshot url
+- `POST	/projects`	        create a new project
+- `GET	/projects/url`	    display a specific project by screenshot url
+- `PUT	/projects/url`	    update a specific project by screenshot url
 - `DELETE	/projects/url`  delete a specific project by screenshot url
 
 ### Relationship Planning
@@ -59,9 +59,10 @@ Reference vs embedded?
     
 ### Nested Routes 
 
-- `GET	/api/projects`	 	          display all projects
+- `GET	/api/projects`	 	        display all projects
 - `GET  /api/profile`               (randomly) display profile attributes
 - `POST	/api/projects`	            create a new project
+- `PUT	/api/projects`          	update a specific project
 ------- not yet built in ---------
-- `PUT	/api/projects`          	  update a specific project
-- `DELETE	/api/projects`            delete a specific project
+- `DELETE	/api/projects`          delete a specific project
+------- not yet built in ---------
