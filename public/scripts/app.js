@@ -20,7 +20,7 @@ $(document).ready(function(){
   // $('#contact').on('click', function(){
   //   $.ajax({
   //     method: 'DELETE',
-  //     url: 'https://personal-api-aquoss.herokuapp.com/api/projects/585649c8d7d2d800115df9ef',
+  //     url: 'https://personal-api-aquoss.herokuapp.com/api/projects/585728cee239680011375f82',
   //     success: function(){
   //       console.log('it worked');
   //     },
@@ -74,6 +74,7 @@ $(document).ready(function(){
     $('#project-container').hide();
     $(this).css('height','400px');
     var imageUrl = this.src;
+    console.log(this.src);
     var query = '/?screenshot='+imageUrl;
     $.ajax({
       method: 'GET',
@@ -101,37 +102,6 @@ $(document).ready(function(){
   })
 
 
-  // responds with profile data
-  // $.ajax({
-  //   method: 'GET',
-  //   url: 'https://personal-api-aquoss.herokuapp.com/api/profile',
-  //   success: onSuccess,
-  //   error: onError
-  //   })
-  //
-  // // responds with all projects
-  // $.ajax({
-  //   method: 'GET',
-  //   url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
-  //   success: onSuccess,
-  //   error: onError
-  //   })
-  //
-  // // responds with one specific project
-  // $.ajax({
-  //   method: 'GET',
-  //   url: 'https://personal-api-aquoss.herokuapp.com/api/projects/:id',
-  //   success: onSuccess,
-  //   error: onError
-  //   })
-  //
-  // // creates a new project
-  // $.ajax({
-  //   method: 'POST',
-  //   url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
-  //   success: onSuccess,
-  //   error: onError
-  //   })
   //
   // // deletes a project
   // $.ajax({
@@ -179,6 +149,11 @@ $(document).ready(function(){
   function loadInfo(arr){
     var source = $('#all-info').html();
     var template = Handlebars.compile(source);
+    console.log(arr[0].name);
+    console.log(arr[0].description);
+    console.log(arr[0].technologies);
+    console.log(arr[0].deploymentSite);
+    console.log(arr[0].dateCreated);
     var projectHtml = template({
       name: arr[0].name,
       dateCreated: arr[0].dateCreated,

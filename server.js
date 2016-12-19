@@ -98,7 +98,7 @@ app.get('/api/projects', function(req, res) {
 //get project by screenshot url
 app.get('/api/projects/:screenshot', function (req, res) {
   //get project by id from url params
-  var screenshotUrl = JSON.parse(req.query.screenshot);
+  var screenshotUrl = req.query.screenshot;
   db.Project.findOne({screenshot: screenshotUrl}, function (err, foundProject){
     if (err){
       res.status(500).send('database error');
