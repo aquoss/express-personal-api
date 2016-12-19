@@ -1,6 +1,7 @@
-//move data variables into back end and add more
+//add close out button to blown up image and revert back to all projects
 //what does the profile do?
 //make list of technologies store in an array from the form
+//get one by screenshot
 $(document).ready(function(){
 
   var profileKeys = ['currentCity','githubProfileImage','favoriteColor','favoriteMovies','enjoy'];
@@ -175,16 +176,17 @@ $(document).ready(function(){
     $('#project-container').append(projectHtml);
   }
 
-  function loadInfo(object){
+  function loadInfo(arr){
     var source = $('#all-info').html();
     var template = Handlebars.compile(source);
     var projectHtml = template({
-      name: object.name,
-      dateCreated: object.dateCreated,
-      description: object.description,
-      technologies: object.technologiesUsed,
-      deploymentSite: object.deploymentSite
+      name: arr[0].name,
+      dateCreated: arr[0].dateCreated,
+      description: arr[0].description,
+      technologies: arr[0].technologiesUsed,
+      deploymentSite: arr[0].deploymentSite
     });
+    $('#large-pic').append(projectHtml);
     $('#large-pic').show();
   }
 
