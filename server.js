@@ -1,3 +1,5 @@
+//Work on: db.Project.findOne is returning all projects, not just one
+
 // require express and other modules
 var express = require('express'),
     app = express();
@@ -97,8 +99,8 @@ app.get('/api/projects', function(req, res) {
 
 //get project by screenshot url
 app.get('/api/projects/:screenshot', function (req, res) {
-  //get project by id from url params
-  var screenshotUrl = req.query.screenshot;
+  //get project by screenshot from url params
+  var screenshotUrl = JSON.parse(req.query.screenshot);
   db.Project.findOne({'screenshot': screenshotUrl}, function (err, foundProject){
     if (err){
       res.status(500).send('database error');
