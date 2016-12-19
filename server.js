@@ -45,8 +45,8 @@ app.get('/', function homepage(req, res) {
  * JSON API Endpoints
  */
 
+//return api data
 app.get('/api', function api_index(req, res) {
-  // TODO: Document all your api endpoints below
   res.json({
     message: "Welcome to my personal api! Here's all the fun info you need to know about me!",
     documentationUrl: "https://github.com/aquoss/express-personal-api/blob/master/README.md",
@@ -54,14 +54,13 @@ app.get('/api', function api_index(req, res) {
     endpoints: [
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
       {method: "GET", path: "/api/profile", description: "Data about me"},
-      // {method: "GET", path: "/api/dives", description: "Data about dives I've done"},
-      // {method: "POST", path: "/api/dives", description: "Creates a new dive entry"},
       {method: "GET", path: "/api/projects", descrition: "Data about projects I've completed"},
       {method: "POST", path: "/api/projects", description: "Creates a new project entry"}
     ]
   })
 });
 
+//return profile data
 app.get('/api/profile', function(req, res) {
   res.json({
     name: "Amber Quoss",
@@ -97,18 +96,18 @@ app.get('/api/projects', function(req, res) {
   })
 })
 
-//get project by screenshot url
-app.get('/api/projects/:screenshot', function (req, res) {
-  //get project by screenshot from url params
-  var screenshotUrl = JSON.parse(req.query.screenshot);
-  db.Project.findOne({'screenshot': screenshotUrl}, function (err, foundProject){
-    if (err){
-      res.status(500).send('database error');
-      return console.log('error: ' + err);
-    }
-    res.json(foundProject);
-  })
-})
+//get project by screenshot url (*** was retrieving all project data? ***)
+// app.get('/api/projects/:screenshot', function (req, res) {
+//   //get project by screenshot from url params
+//   var screenshotUrl = JSON.parse(req.query.screenshot);
+//   db.Project.findOne({'screenshot': screenshotUrl}, function (err, foundProject){
+//     if (err){
+//       res.status(500).send('database error');
+//       return console.log('error: ' + err);
+//     }
+//     res.json(foundProject);
+//   })
+// })
 
 //create new project
 app.post('/api/projects', function (req, res) {
@@ -130,8 +129,6 @@ app.post('/api/projects', function (req, res) {
   })
 })
 
-
-
 //delete project
 app.delete('/api/projects/:id', function (req, res) {
   //get project by id from url params
@@ -144,7 +141,7 @@ app.delete('/api/projects/:id', function (req, res) {
   })
 })
 
-//update project
+//update project (*** not yet used on front end)
 app.patch('/api/projects/:id', function (req, res) {
   //get project by id from url params
   db.Project.findOne({_id: req.params.id}, function (err, updatedProject){

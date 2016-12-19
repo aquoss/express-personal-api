@@ -1,7 +1,10 @@
-//add close out button to blown up image and revert back to all projects
-//what does the profile do?
-//make list of technologies store in an array from the form
-//get one by screenshot
+//WORK ON:
+//add to profile button
+//how to store query string into an array
+//get delete button working
+//add return button to project archive
+//add to contact button
+
 $(document).ready(function(){
 
   var profileKeys = ['currentCity','githubProfileImage','favoriteColor','favoriteMovies','enjoy'];
@@ -15,18 +18,6 @@ $(document).ready(function(){
   //hide new project form on load
   $('#project-form').hide();
   $('#large-pic').hide();
-
-//needs to delete specific id in route, get id from button you click on
-  // $('#contact').on('click', function(){
-  //   $.ajax({
-  //     method: 'DELETE',
-  //     url: 'https://personal-api-aquoss.herokuapp.com/api/projects/585728cee239680011375f82',
-  //     success: function(){
-  //       console.log('it worked');
-  //     },
-  //     error: onError()
-  //   })
-  // })
 
   //initial project load
   $.ajax({
@@ -69,17 +60,17 @@ $(document).ready(function(){
     })
   })
 
+  //display specific project data when image is clicked
   var query, imageUrl;
-
   $(document).on('click', '.project-img', function(){
     $('#large-pic').prepend($(this));
     $('#project-container').hide();
+    $('.btn-group').hide();
     $(this).css('height','400px');
     imageUrl = this.src;
-    query = '/?screenshot='+imageUrl;
     $.ajax({
       method: 'GET',
-      url: 'https://personal-api-aquoss.herokuapp.com/api/projects' + query,
+      url: 'https://personal-api-aquoss.herokuapp.com/api/projects',
       success: loadInfo,
       error: onError
     })
@@ -98,32 +89,12 @@ $(document).ready(function(){
     })
   })
 
+  //shrink header when click on project nav
   $('#projects').on('click', function(){
     shortHeader();
   })
 
-
-  //
-  // // deletes a project
-  // $.ajax({
-  //   method: 'DELETE',
-  //   url: 'https://personal-api-aquoss.herokuapp.com/api/projects/:id',
-  //   success: onSuccess,
-  //   error: onError
-  //   })
-  //
-  // // updates a project
-  // $.ajax({
-  //   method: 'PATCH',
-  //   url: 'https://personal-api-aquoss.herokuapp.com/api/projects/:id',
-  //   success: onSuccess,
-  //   error: onError
-  //   })
-
-  function loadContact(response){
-    $('#data').hide();
-  }
-
+  //extract json data into handlebars on project load
   function loadProjects(response){
     var source = $('#project-template').html();
     var template = Handlebars.compile(source);
@@ -136,6 +107,7 @@ $(document).ready(function(){
     })
   }
 
+  //append new project using handlebars
   function newProject(object){
     var source = $('#project-template').html();
     var template = Handlebars.compile(source);
@@ -147,24 +119,23 @@ $(document).ready(function(){
     $('#project-container').append(projectHtml);
   }
 
+  //display data for specific image clicked
   function loadInfo(arr){
-    console.log(arr);
-    // var source = $('#all-info').html();
-    // var template = Handlebars.compile(source);
-    // console.log(arr[0].name);
-    // console.log(arr[0].description);
-    // console.log(arr[0].technologies);
-    // console.log(arr[0].deploymentSite);
-    // console.log(arr[0].dateCreated);
-    // var projectHtml = template({
-    //   name: arr[0].name,
-    //   dateCreated: arr[0].dateCreated,
-    //   description: arr[0].description,
-    //   technologies: arr[0].technologiesUsed,
-    //   deploymentSite: arr[0].deploymentSite
-    // });
-    // $('#large-pic').append(projectHtml);
-    // $('#large-pic').show();
+    arr.forEach(function(obj){
+      if (obj.screenshot===imageUrl) {
+        var source = $('#all-info').html();
+        var template = Handlebars.compile(source);
+        var projectHtml = template({
+          name: obj.name,
+          dateCreated: obj.dateCreated,
+          description: obj.description,
+          technologies: obj.technologiesUsed,
+          deploymentSite: obj.deploymentSite
+        });
+        $('#large-pic').append(projectHtml);
+      }
+      $('#large-pic').show();
+    })
   }
 
   //shorten header
@@ -226,6 +197,28 @@ $(document).ready(function(){
     $('#view-all').removeClass('inactive').addClass('active');
     $('#new-project').removeClass('active').addClass('inactive');
   }
+
+  //add listener to return button to return to previous project archive
+
+  //will delete specific project
+    // $('#delete').on('click', function(){
+    //   $.ajax({
+    //     method: 'DELETE',
+    //     url: 'https://personal-api-aquoss.herokuapp.com/api/projects/:id',
+    //     success: function(){
+    //       console.log('it worked');
+    //     },
+    //     error: onError()
+    //   })
+    // })
+
+  // // updates a project
+  // $.ajax({
+  //   method: 'PATCH',
+  //   url: 'https://personal-api-aquoss.herokuapp.com/api/projects/:id',
+  //   success: onSuccess,
+  //   error: onError
+  //   })
 
 });
 
